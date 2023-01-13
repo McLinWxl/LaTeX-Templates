@@ -1,0 +1,104 @@
+% main.tex
+\newpage
+\fancypage{%
+	\setlength{\fboxsep}{8pt}%
+	\setlength{\fboxrule}{0.8pt}%
+	\setlength{\shadowsize}{0pt}%
+	\shadowbox}{}
+\setcounter{page}{1}
+%%%%%%% 下方开始写正文 %%%%%%%%%%%%
+
+
+\title{\bf\thestitle}
+\author{外文作者姓名}
+\date{}
+
+\maketitle         % 创建正文title page
+\thispagestyle{empty}   % 不显示页眉页脚
+
+\begin{abstract}
+For the highly coupled and nonlinear Cahn–Hilliard phase-field model of three-phase incompressible flow, how to establish a fully-decoupled numerical scheme with second-order time accuracy has always been a very difficult and unsolved problem. In this paper, we propose a novel decoupling method, which only needs to solve several decoupling linear elliptic equations with constant coefficients at each time step to obtain a numerical solution with second-order time accuracy. The key idea is to introduce two nonlocal auxiliary variables into the system, one of which is used to linearize the nonlinear potential, and the other is used to introduce an ordinary differential equation to deal with the nonlinear coupling terms with “zero-energy- contribution” characteristics. We strictly prove the solvability and unconditional energy stability of the scheme, and conduct numerical simulations in 2D and 3D to show the accuracy and stability of the scheme numerically. To the best of the author’s knowledge, the method developed in this paper is the first second-order fully-decoupled scheme for the hydrodynamics coupled phase-field model.
+\end{abstract}
+
+{\bf 关键字:} Fully-decoupled; Second-order; Phase-field; Cahn–Hilliard; Three-phase; Unconditional energy stability
+
+\section{引言}
+\label{sec:intro}
+Unlike the phase-field model of the two-phase flow system that requires only one phase-field variable to represent the volume fraction of two phases, the Cahn–Hilliard phase-field model of three-phase incompressible flows usually requires three phase-field variables to formally represent the volume (or mass) of each component \cite{Kim2005Interfaces,Boyer2011esaim,Boyer2010Transp,Boyer2006M2AN}. In the total free energy, the hydrophilic–hydrophobic tendency of each phase-field variable is independent, but to ensure the so- called free-leakage condition of the system, a Lagrange multiplier needs to be added in each Cahn–Hilliard equation, thereby establishing a highly nonlinear and coupled system. Not only that, for some specific physical phenomena, such as the so-called “total spreading” situation, but it is also necessary to add some coupled higher-order terms to the total free energy to ensure the well-posedness of the entire system. Finally, after combining the Navier–Stokes equation describing the characteristics of the incompressible flow field, a highly coupled and nonlinear complex dynamical system is obtained. Among them, the coupling terms can be divided into two categories, one is formulated from the energy variation, the other comes from fluid properties, including the advection and surface tension from the three fluid components.
+We recall that for this complex model, there are still some successful attempts to develop numerical algorithms that can achieve unconditional energy stability, or fully-decoupling structure, or both. Some are for the partial model without the flow field, such as the nonlinear method in [3,4], Invariant Energy Quadratization (IEQ) method in \cite{Yang20173CHM3AS}, Scalar Auxiliary Variable (SAV) method in \cite{Zhang2020threeCHjcp,Zhang2020threeACcmame}, etc. For the full model with the flow field, to the best of the author’s knowledge, the only fully-decoupled scheme with unconditional energy stability is developed in [8], however, the scheme is only first-order in time, and its computational cost is relatively expensive due to the nonlinear nature. Hence, a natural question arises, why it is so difficult to establish a fully-decoupled and second-order time-accurate scheme, since we all know that there are so many second-order energy-stable numerical schemes for the phase-field models (for example, the linear stabilization [9–12], convex splitting [13–17], IEQ [5,18–22], SAV [18,23–27], nonlinear derivative [28], nonlinear quadrature [29–31] methods, etc.), and the Navier–Stokes equations (for example, the projection-type methods including pressure-correction, velocity-correction, Gauge-method, etc., see [32–35]). Therefore, based on the above facts, it can be considered that simply combining these methods can easily obtain the ideal scheme, that is, a completely decoupled and second-order time-accurate scheme.
+
+\section{Model system}
+\label{sec:model}
+We briefly outline the Cahn–Hilliard phase-field system, which simulates the three immiscible fluid components proposed in \cite{Boyer2011esaim,Boyer2010Transp,Boyer2006M2AN}. A domain Ω is an open bounded, connected, subset in $\mathbb{R}^d$ of $d = 2,3,$ with a sufficiently smooth boundary. We assume $\phi_i(i=1,2,3)$ to be the i th phase-field variable which represents the volume of the $i$-th component in the fluid mixture, such that
+\begin{equation}
+	\phi_i(\bm{x},t) =\begin{cases}
+		1 & \text{inside the $i$th component,} \\
+	    0 & \text{outside the $i$th component,}
+	\end{cases}
+\end{equation}
+where $\bm{x}\in\Omega,$ $t$ is time in $[0,T].$ A smooth layer with the thickness ε is used to connect the interface between $0$ and $1.$ Assuming the mixture being perfect (called as free-leakage condition), the three unknowns $\phi_1,\phi_2,\phi_3$ are linked by the following relationship:
+\begin{equation}
+	\label{eq:sum1}
+	\phi_1(\bm{x},t) + 	\phi_2(\bm{x},t) +	\phi_3(\bm{x},t)  =1.
+\end{equation}
+There are several ways to promote the two-phase model to the three-phase case, cf. [1–4]. In this article, we use
+the model developed in [2–4] and assume the total free energy as
+\begin{equation}
+\label{eq:energy0}
+E(\phi_1,\phi_2,\phi_3) = \int_\Omega\left( \dfrac{3\epsilon}{8}L(\phi_1,\phi_2,\phi_3)+\dfrac{12}{\epsilon}F(\phi_1,\phi_2,\phi_3) \right)\mathdx,
+\end{equation}
+where $\epsilon$ is the order parameter to characterize the interfacial width, $L(\phi_1,\phi_2,\phi_3)$ is the linear part, and $F(\phi_1,\phi_2,\phi_3)$ is the nonlinear part.
+
+The linear part is given as
+\begin{equation}s
+L(\phi_1,\phi_2,\phi_3) = \varSigma_1\abs{\nabla \phi_1}^2+\varSigma_2\abs{\nabla \phi_2}^2+\varSigma_3\abs{\nabla \phi_3}^2,
+\end{equation}
+where the coefficient $\varSigma_i$ represents the ``spreading" coefficient of the $i$th at the interface between $j$th phase and $k$th phase. One can deduce that the following conditions hold between the three surface tension parameters $\sigma_{ij}(\sigma_{12},\sigma_{13},\sigma_{23})$ and three spreading coefficients $(\varSigma_1,\varSigma_2,\varSigma_3)$  (see \cite{Boyer2011esaim,Boyer2010Transp,Boyer2006M2AN}):
+
+Note $\varSigma_i$ might not be always positive. If $\varSigma_i>0,$ it means that the spreading is ``partial", if $\varSigma_i<0,$ it is called ``total".
+
+The nonlinear potential $F(\phi_1,\phi_2,\phi_3)$ is given as: 
+\begin{equation}
+	\begin{aligned}
+		F(\phi_1,\phi_2,\phi_3) = & \sigma_{12}\phi_1^2\phi_2^2+\sigma_{13}\phi_1^2\phi_3^2 +\sigma_{23}\phi_2^2\phi_3^2 \\
+		&+ \phi_1\phi_2\phi_3(\varSigma_1\phi_1 +\varSigma_1\phi_2+\varSigma_1\phi_3) +3\Lambda\phi_1^2\phi_2^2\phi_3^3,
+	\end{aligned}
+\end{equation}
+where $\Lambda$ is a non-negative constant. Since $\phi_1,\phi_2,\phi_3$ satisfy the free-leakage condition \eqref{eq:sum1}, $F(\phi_1,\phi_2,\phi_3)$ can be rewritten as
+\begin{equation}
+F(\phi_1,\phi_2,\phi_3)=F_0(\phi_1,\phi_2,\phi_3)+F_1(\phi_1,\phi_2,\phi_3),
+\end{equation}
+where
+\begin{equation}
+\begin{cases}
+F_0(\phi_1,\phi_2,\phi_3)  =\dfrac{\varSigma_i}{2}\phi_1^2(1-\phi_1)^2 +\dfrac{\varSigma_i}{2}\phi_2^2(1-\phi_2)^2 +\dfrac{\varSigma_i}{2}\phi_3^2(1-\phi_3)^2,   \\
+F_1(\phi_1,\phi_2,\phi_3) = 3\Lambda\phi_1^2\phi_2^2\phi_3^2.
+\end{cases}
+\end{equation}
+
+
+Regarding the total free energy and surface tension coefficients, some remarks are given as follows (see the details in \cite{Boyer2006M2AN}):
+
+
+\section{数值格式}
+\label{sec:schemes}
+
+
+
+\section{数值模拟}
+\label{sec:simulation}
+
+
+
+\section{结论}
+\label{sec:conclusion}
+In this paper, with the help of two nonlocal auxiliary variables, a novel second-order fully-decoupled numerical algorithm is developed to solve the highly nonlinear phase-field model of three-phase incompressible flow. The scheme only needs to solve several decoupled linear elliptic equations with constant coefficients at each time step to obtain a numerical solution with second-order time accuracy. Solvability and unconditional energy stability have also been rigorously proven, and a large number of numerical simulations have been performed in 2D and 3D to show the accuracy and stability of the scheme numerically. Moreover, the novel decoupling method proposed in this paper can be widely applied to a large number of coupling models, as long as the nonlinear coupling terms satisfy the so-called “zero-energy-contribution” characteristic.
+
+
+
+
+
+
+
+
+

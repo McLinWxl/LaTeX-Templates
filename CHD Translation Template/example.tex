@@ -1,0 +1,99 @@
+%!TEX program = xelatex
+% 完整编译: xelatex -> bibtex -> xelatex -> xelatex
+\documentclass[11pt]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath,amsbsy,amssymb,amsfonts}
+\usepackage{bm}
+\usepackage[a4paper]{geometry}
+\geometry{
+top=26.8mm,bottom=34.0mm,left=23mm,right=23mm
+}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{indentfirst}
+\usepackage{stmaryrd}
+\usepackage{url}
+\usepackage{lscape}
+\usepackage{tabularx}
+\usepackage{longtable}
+%\usepackage{fancyhdr}
+\usepackage{fancybox}
+\usepackage{titlesec}
+\usepackage{multirow}
+\usepackage{booktabs}	
+\usepackage{enumerate}
+\usepackage{cases}
+\usepackage{framed}
+\usepackage{hyperref}
+\hypersetup{
+		colorlinks=true,
+	%	linkcolor=blue,
+		citecolor=blue,      
+	%	urlcolor=magenta,
+}
+\usepackage[sort&compress]{gbt7714}
+\citestyle{numbers}
+\bibliographystyle{gbt7714-numerical}
+
+%\pagestyle{plain}
+\pagestyle{empty} %页眉页脚不显示
+
+\graphicspath{{figs/}}  %Setting the graphicspath
+
+\numberwithin{equation}{section} %公式跟随节编号
+
+
+% 自定义命令
+\newcommand{\mathdx}{\,d{\bm x}}
+\newcommand{\mathdy}{\,d{\bm y}}
+\newcommand*{\abs}[1]{\lvert#1\rvert}
+\newcommand*{\Abs}[1]{\big\lvert#1\big\rvert}
+\newcommand*{\ABS}[1]{\Big\lvert#1\Big\rvert}
+\newcommand*{\AABS}[1]{\left\lvert#1\right\rvert}
+\newcommand*{\norm}[1]{\left\lVert #1 \right\rVert}
+%\renewcommand*{\norm}[1]{\lVert #1 \rVert}
+\newcommand*{\Norm}[1]{\big\lVert #1 \big\rVert}
+\newcommand*{\NOrm}[1]{\Big\lVert #1 \Big\rVert}
+\newcommand*{\NORM}[1]{\left\lVert #1 \right\rVert}
+
+% 论文信息
+\newcommand{\institution}{}
+\newcommand{\classID}{}
+\newcommand{\cardID}{}
+\newcommand{\namestudent}{}
+\newcommand{\namesupervisor}{}
+\newcommand{\thestitle}{}
+\newcommand{\thestitlelineone}{}
+\newcommand{\thestitlelinetwo}{}
+\newcommand{\major}{}
+\newcommand{\myyear}{}
+\newcommand{\mymonth}{}
+\newcommand{\myday}{}
+
+\renewcommand{\institution}{理学院}
+\renewcommand{\classID}{2022120101}
+\renewcommand{\cardID}{2022902001}
+\renewcommand{\namestudent}{王二娃}
+\renewcommand{\namesupervisor}{赵四六}
+\renewcommand{\thestitle} {翻译论文题目的全名有可能非常长需要两行第一行什么第二行什么}
+\renewcommand{\thestitlelineone} {翻译论文题目的全名有可能非常长}
+\renewcommand{\thestitlelinetwo} {需要两行第一行什么什么第二行什么什么}
+\renewcommand{\major}{专业名称}
+\renewcommand{\myyear}{二二}
+\renewcommand{\mymonth}{三}
+\renewcommand{\myday}{六}
+
+% 固定长度下划线
+\makeatletter
+\newcommand\dlmu[2][4cm]{\hskip1pt\underline{\hb@xt@ #1{\hss#2\hss}}\hskip3pt}
+\makeatother
+
+\begin{document}
+\input{cover}  % 封面
+\input{body}           % 正文
+\bibliography{mybib}   % 参考文bib库
+\input{lastframe}  % 指导教师审核意见
+\end{document}
