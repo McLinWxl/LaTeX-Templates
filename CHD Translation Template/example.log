@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.1.11)  12 JAN 2023 01:50
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.1.11)  16 APR 2023 21:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/mclinwong/GitHub/LaTeX Templates/CHD Translation Template/example"
-(/Users/mclinwong/GitHub/LaTeX Templates/CHD Translation Template/example.tex
+**"/Users/mclinwong/GitHub/LaTeX-Templates/CHD Translation Template/example"
+(/Users/mclinwong/GitHub/LaTeX-Templates/CHD Translation Template/example.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-02-24> (/usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
@@ -711,9 +711,9 @@ LaTeX Info: Redefining \nameref on input line 94.
 \@outlinefile=\write4
 \openout4 = `example.out'.
 
- (./cover.tex
-File: chdnamexi.png Graphic file (type bmp)
-<chdnamexi.png>
+ (./Cover/cover.tex
+File: figs//chdnamexi.png Graphic file (type bmp)
+<figs//chdnamexi.png>
 
 
 Package fontspec Warning: Font "Songti SC Light" does not contain requested
@@ -804,7 +804,7 @@ LaTeX Font Warning: Font shape `U/stmry/m/n' in size <18.06749> not available
 LaTeX Font Warning: Font shape `U/stmry/m/n' in size <15.05624> not available
 (Font)              size <14.4> substituted on input line 27.
 
-) (./body.tex [1
+) (./Body/body.tex [1
 
 ]
 
@@ -854,7 +854,7 @@ Package natbib Warning: Citation `Boyer2006M2AN' on page 3 undefined on input li
 
 )
 No file example.bbl.
-(./lastframe.tex [3]
+(./LastFrame/lastframe.tex [3]
 
 Package fontspec Warning: Font "Heiti SC Light" does not contain requested
 (fontspec)                Script "CJK".
@@ -908,12 +908,12 @@ Package rerunfilecheck Info: File `example.out' has not changed.
 (rerunfilecheck)             Checksum: 491FE7A298FD15EC36DE1F5F8BCBCC29;374.
  ) 
 Here is how much of TeX's memory you used:
- 18596 strings out of 476179
- 379190 string characters out of 5809544
+ 18602 strings out of 476179
+ 379430 string characters out of 5809544
  718243 words of memory out of 5000000
- 38971 multiletter control sequences out of 15000+600000
+ 38972 multiletter control sequences out of 15000+600000
  493085 words of font info for 165 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 89i,12n,97p,1720b,379s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,12n,97p,1727b,379s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 Output written on example.pdf (5 pages).
